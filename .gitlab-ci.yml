@@ -1,0 +1,17 @@
+image: golang:1.9
+
+variables:
+  REPO_NAME: git.dolansoft.org/lorenz/oneplus-fw-extractor
+  CGO_ENABLED: "0"
+
+before_script:
+  - mkdir -p $GOPATH/src/$REPO_NAME
+  - ln -svf $CI_PROJECT_DIR/* $GOPATH/src/$REPO_NAME
+  - cd $GOPATH/src/$REPO_NAME
+
+build-linux64:
+  script:
+  - go build -o $CI_PROJECT_DIR/oneplus-fw-extractor
+  artifacts:
+    paths:
+      - oneplus-fw-extractor
